@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>$groupId</groupId>
+	<artifactId>$artifactId</artifactId>
+	<version>$version</version>
+	<packaging>ear</packaging>
+
+	<parent>
+		<groupId>com.zen.jee.fwk</groupId>
+		<artifactId>jee-fwk</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<plugins>
+            <plugin>		
+                <groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+                    <applicationXml>${project.build.directory}/application.xml</applicationXml> 
+                    <applicationName>$artifactId</applicationName>
+		          <generateApplicationXml>true</generateApplicationXml>
+		          <defaultLibBundleDir>lib</defaultLibBundleDir>	
+		          
+					<modules>
+						<webModule>
+							<groupId>$groupId</groupId>
+							<artifactId>${rootArtifactId}-web</artifactId>
+							<bundleFileName>${rootArtifactId}-web.war</bundleFileName>
+							<contextRoot>/${rootArtifactId}</contextRoot>
+						</webModule>
+					</modules>				
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>${rootArtifactId}-ear</finalName>
+	</build>
+
+	<!-- Define the versions of your ear components here -->
+	<dependencies>
+ 		<!-- services -->
+<!-- 		<dependency>
+			<groupId>com.prios.ws</groupId>
+			<artifactId>prios-ws-TP4-services</artifactId>
+			<type>ejb</type>
+			<version>1.0-SNAPSHOT</version>
+		</dependency> 	 -->
+		<!-- Libs -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+			
+		<!-- WAR -->
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>${rootArtifactId}-web</artifactId>
+			<type>war</type>
+			<version>$version</version>
+		</dependency>
+	</dependencies>
+</project>

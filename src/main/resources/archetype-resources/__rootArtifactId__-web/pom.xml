@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>$groupId</groupId>
+	<artifactId>$artifactId</artifactId>
+	<version>$version</version>
+	<packaging>war</packaging>
+
+	<parent>
+		<groupId>com.zen.jee.fwk</groupId>
+		<artifactId>jee-fwk</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<build>
+		<finalName>${artifactId}</finalName>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-wsdl</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>$groupId</groupId>
+									<artifactId>__rootArtifactId__-ws</artifactId>
+									<version>$version</version>
+									<classifier>wsdl</classifier>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+                            <directory>target\wsdl\</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+	<dependencies>
+	        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.ejb</artifactId>
+            <version>3.0</version>
+            <scope>provided</scope>
+        </dependency>   
+
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>__rootArtifactId__-common</artifactId>
+			<type>jar</type>
+			<version>$version</version>
+		</dependency>
+
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>__rootArtifactId__-services</artifactId>
+			<type>ejb</type>
+			<version>$version</version>
+		</dependency>
+		<dependency>
+			<groupId>$groupId</groupId>
+			<artifactId>__rootArtifactId__-ws</artifactId>
+			<type>ejb</type>
+			<version>$version</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
